@@ -1,5 +1,7 @@
 //Global Variables - these won't be refreshed at every game reset
-var wordBank = ['name','role','family','mother','son','daughter','children'];
+var wordBank = ['family','mother','son','daughter','children','child','baby',
+'relative','husband','wife','nephew','niece',
+'cousin','brother','sister','sibling','aunt','uncle','grandmother','grandfather'];
 var wins = 0; 
 var losses = 0;
 var wordBlanks = document.getElementById("word-blanks");
@@ -33,8 +35,9 @@ var hangmanGame = {
         document.getElementById("guesses-left").textContent =  this.guessesLeft;
         document.getElementById("wrong-guesses").textContent =  this.wrongGuesses;
     }
-};
+}; //end of hangman game object
 
+//replace characters at a particular index with whatever "replace" character is
 function replaceAt(string, index, replace) {
     return string.substring(0, index) + replace + string.substring(index + 1);
 }
@@ -44,6 +47,8 @@ function generateRandomWord() {
     console.log("randomWord: " + randomWord);
     return randomWord;
 }
+
+//before anythign happens, reset the game
 hangmanGame.resetGame();
 
 // Next, get user key input, using onkeyup event
@@ -53,7 +58,6 @@ document.onkeyup = function(event) {
     
     //loop through the randomWord for each character and see if userKey is found
 
-    //decrement guessesLeft
     var wrong = false;
     if(hangmanGame.placeholder != hangmanGame.paddedRandomWord && (hangmanGame.guessesLeft >= 0)){
         hangmanGame.guessesLeft--;
@@ -71,6 +75,8 @@ document.onkeyup = function(event) {
             wins++;
             console.log("Won! here's the placeholder now. " + hangmanGame.placeholder);
             wordBlanks.textContent = hangmanGame.placeholder;
+            var audio = new Audio("assets/audio/winningTriamph.mp3");
+            audio.play();
             alert("Yay!! You Win! Successfully guessed the word : " + hangmanGame.randomWord);
             hangmanGame.resetGame();
             
