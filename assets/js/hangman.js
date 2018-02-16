@@ -60,7 +60,10 @@ document.onkeyup = function(event) {
 
     var wrong = false;
     if(hangmanGame.placeholder != hangmanGame.paddedRandomWord && (hangmanGame.guessesLeft >= 0)){
-        hangmanGame.guessesLeft--;
+        if(userKey.charCodeAt(0) >= 97 && userKey.charCodeAt(0) <= 122){
+            hangmanGame.guessesLeft--;
+        }
+        
         for(var i = 0; i < hangmanGame.randomLength; i++){
             if(hangmanGame["randomWord"].charAt(i) === userKey){
                 hangmanGame.placeholder = replaceAt(hangmanGame.placeholder, i*2, userKey);
